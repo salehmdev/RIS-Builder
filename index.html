@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>RIS Builder</title>
+		
+        <link rel="stylesheet" href="main.css">
+		<link rel="stylesheet" href="styles/style1.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="styles/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
+		<script src="main.js"></script>
+        
+        <script>
+			// try code
+			$( function() {
+				$( "#accordion" ).accordion({
+					header: "> div > h3",
+					collapsible: true
+				})
+				.sortable({
+					axis: "y",
+					handle: "h3",
+					stop: function( event, ui ) {
+					  // IE doesn't register the blur when sorting
+					  // so trigger focusout handlers to remove .ui-state-focus
+					  ui.item.children( "h3" ).triggerHandler( "focusout" );
+
+					  // Refresh accordion to handle new order
+					  $( this ).accordion( "refresh" );
+					}
+				  });
+			} );
+			// end of try code
+        </script>
+        
+    </head>
+    <body>
+    	<div id="page">
+	        <header>
+	        	<h1 id="Web-Logo">RIS Builder</h1><br>
+	        	<button class="nav-bnt" id="myBtn">Add a Sheet</button>
+                <button class="nav-bnt" id="exportProject-btn">Export project</button>
+	        </header>
+            <div id="main">
+                <h2 id="welcomeMessage">Welcome to the RIS Builder! Click "Add a sheet" to begin. If you need help, click "Help" below</h2>
+            </div>
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+
+			  <!-- Modal content -->
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <span class="close">&times</span>
+				  <h2>Add a Sheet</h2>
+				</div>
+				<div class="modal-body">
+				  <form id="RISForm">
+                      <label>Risk ID:</label>
+                      <input type="text" name="riskID" id="riskID" maxlength="15" required><br>
+					  <label>Date:</label>
+					  <input name="date" class="date" id="date" required pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"><br>
+					  <label>Probability:</label>
+					  <input type="number" name="Probability" id="Probability" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" required min="0" max="1" step="0.01"><br>
+					  <label>Impact:</label>
+					  <select id="Impact" name="Impact" id="Impact" required>
+						  <option value="Very High">Very High</option>
+						  <option value="High">High</option>
+						  <option value="Low">Low</option>
+						  <option value="Very Low">Very Low</option>
+					  </select><br><br>
+					  <label>Description:</label>
+					  <textarea rows="6" cols="50" name="description" id="description" maxlength="500" required></textarea><br><br>
+					  <label>Refinement/context:</label>
+					  <textarea rows="3" cols="21" name="Refinement-context" id="Refinement-context" maxlength="700" required></textarea><br><br>
+					  <label>Mitigation/monitoring:</label>
+					  <textarea rows="3" cols="21" name="Mitigation-monitoring" id="Mitigation-monitoring" maxlength="700" required></textarea><br><br>
+					  <label>Management/contingency:</label>
+					  <textarea rows="3" cols="21" name="Management-contingency" id="Management-contingency" maxlength="500" required></textarea><br>
+					  <label>Trigger:</label>
+					  <input type="text" name="Trigger" id="Trigger" maxlength="150" required><br>
+					  <label>Current status:</label>
+					  <input type="text" name="Current-status" id="Current-status" maxlength="50" required>
+					  <input name="Current-status-date" class="date"  id="Current-status-date" required pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"><br>
+					  <label>Originator:</label>
+					  <input type="text" name="Originator" id="Originator" maxlength="20" required><br>
+					  <label>Assigned by:</label>
+					  <input type="text" name="Assigned-by" id="Assigned-by" maxlength="20" required><br>
+					  <input class="modal-btn" id="submitBTN" type="submit" value="Save">
+                      <input class="modal-btn" id="cancelBTN" type="button" value="Cancel">
+                  </form>
+				</div>
+
+			  </div>
+
+			</div>
+			
+			<p id="note-warning">Note: closing this page will lose all progress</p>
+            
+	        <footer>
+                <a href="about.html" target="_blank">About</a>
+                <a href="help.html" target="_blank">Help</a><br>
+	        	<p>&copy; 2016 All Rights Reserved</p>
+	        </footer>
+
+	    </div>
+	</body>
+</html>
+
